@@ -166,3 +166,39 @@ describe('legal pages', () => {
     }
   });
 });
+
+describe('robots.txt, sitemap.xml and canonical links', () => {
+  const SITE = 'https://kliplug.ru';
+
+  it('points robots.txt to the sitemap and cleans ad parameters', async () => {
+    const robots = await read('robots.txt');
+    assert.match(robots, /^User-agent: \*$/m);
+    assert.match(robots, new RegExp(`^Sitemap: ${SITE}/sitemap\\.xml$`, 'm'));
+    assert.match(robots, /^Clean-param: [^\n]*utm_source[^\n]*yclid/m);
+    assert.doesNotMatch(robots, /^Disallow: \/$/m);
+  });
+
+  it('lists every page in the sitemap and each of them exists', async () => {
+    const sitemap = await read('sitemap.xml');
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    assert.deepEqual(locs.sort(), [`${SITE}/`, ...LEGAL_PAGES.map((p) => `${SITE}/${p}/`)].sort());
+    for (const loc of locs) {
+      const rel = loc.slice(SITE.length);
+      await access(path.join(publicDir, rel === '/' ? 'index.html' : `${rel}index.html`));
+    }
+  });
+
+  it('gives every page a canonical link to its own address', async () => {
+    assert.match(html, new RegExp(`<link rel="canonical" href="${SITE}/">`));
+    for (const page of LEGAL_PAGES) {
+      const doc = await read(`${page}/index.html`);
+      assert.match(doc, new RegExp(`<link rel="canonical" href="${SITE}/${page}/">`), page);
+    }
+  });
+
+  it('uses an existing image for link previews', async () => {
+    const m = html.match(/<meta property="og:image" content="https:\/\/kliplug\.ru\/([^"]+)">/);
+    assert.ok(m, 'og:image is missing');
+    await access(path.join(publicDir, m[1]));
+  });
+});
