@@ -562,7 +562,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
   }
   if (hero && !reduce) {
     var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    var slow = !!(conn && (conn.saveData || /2g|3g/.test(conn.effectiveType || '')));
+    var slow = !!(conn && (conn.saveData || /2g/.test(conn.effectiveType || '')));
     var small = window.matchMedia('(max-width: 899px)').matches;
     if (!(small && slow)) {
       Array.prototype.forEach.call(hero.querySelectorAll('source[data-src]'), function(src){
@@ -573,11 +573,28 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
     }
   }
 
+  var blocked = [];
+
+  function onScreen(v){
+    var r = v.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth;
+  }
+
   function play(v){
     if (reduce) return;
     var p = v.play();
-    if (p && p.catch) p.catch(function(){});
+    if (p && p.catch) p.catch(function(){ if (blocked.indexOf(v) < 0) blocked.push(v); });
   }
+
+  function retryBlocked(){
+    var list = blocked;
+    blocked = [];
+    list.forEach(function(v){ if (onScreen(v)) play(v); else blocked.push(v); });
+  }
+
+  ['touchstart','click','keydown'].forEach(function(type){
+    document.addEventListener(type, retryBlocked, { passive: true });
+  });
 
   if ('IntersectionObserver' in window) {
     var vio = new IntersectionObserver(function(entries){
