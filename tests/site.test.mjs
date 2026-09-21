@@ -109,6 +109,9 @@ describe('public/index.html', () => {
     assert.match(html, /data-cookie="accepted"/);
     assert.match(html, /data-cookie="declined"/);
     assert.doesNotMatch(html, /mc\.yandex\.ru\/watch/);
+    assert.match(html, /var YM_ID = '\d+';/);
+    assert.doesNotMatch(html, /\[ID_МЕТРИКИ\]/);
+    assert.match(html, /metrika\/tag\.js\?id=' \+ YM_ID/);
   });
 
   it('avoids the banned marketing words', () => {
