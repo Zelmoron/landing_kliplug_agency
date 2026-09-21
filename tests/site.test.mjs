@@ -50,6 +50,7 @@ describe('public/index.html', () => {
     assert.match(html, /<meta name="viewport"[^>]+width=device-width/);
     assert.match(html, /<title>[^<]*Видео для карточки товара[^<]*<\/title>/);
     assert.match(html, /<meta name="description" content="[^"]{50,}">/);
+    assert.match(html, /<meta name="yandex-verification" content="dd0a02c47e8ffda9">/);
   });
 
   it('wires the lead form with two required fields and a honeypot', () => {
