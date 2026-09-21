@@ -287,11 +287,25 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
 
 <header class="hero">
   <div class="hero-media" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="none" data-poster="videos/hero-mobile.jpg" data-poster-wide="videos/hero-desktop.jpg" disablepictureinpicture tabindex="-1">
+    <video id="hero-video" autoplay muted loop playsinline preload="none" data-poster="videos/hero-mobile.jpg" data-poster-wide="videos/hero-desktop.jpg" disablepictureinpicture tabindex="-1">
       <source data-src="videos/hero-desktop.mp4" media="(min-width: 900px)" type="video/mp4">
       <source data-src="videos/hero-mobile.mp4" type="video/mp4">
     </video>
   </div>
+  <script>
+  (function(){
+    var v = document.getElementById('hero-video');
+    var wide = window.matchMedia('(min-width: 900px)').matches;
+    v.setAttribute('poster', v.getAttribute(wide ? 'data-poster-wide' : 'data-poster'));
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!wide && c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+    var list = v.querySelectorAll('source[data-src]');
+    for (var i = 0; i < list.length; i++) list[i].setAttribute('src', list[i].getAttribute('data-src'));
+    v.setAttribute('data-on', '');
+    v.load();
+  })();
+  </script>
   <div class="top wrap">
     <span class="brand">Kliplug Agency</span>
   </div>
@@ -314,15 +328,15 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
     </div>
     <div class="strip">
       <figure class="work">
-        <div class="frame"><video data-src="videos/videokarta.mp4" poster="videos/videokarta.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: видеокарта"></video></div>
+        <div class="frame"><video data-src="videos/videokarta.mp4" data-poster="videos/videokarta.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: видеокарта"></video></div>
         <figcaption>Техника</figcaption>
       </figure>
       <figure class="work">
-        <div class="frame"><video data-src="videos/kofe.mp4" poster="videos/kofe.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: турецкий кофе"></video></div>
+        <div class="frame"><video data-src="videos/kofe.mp4" data-poster="videos/kofe.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: турецкий кофе"></video></div>
         <figcaption>Продукты</figcaption>
       </figure>
       <figure class="work">
-        <div class="frame"><video data-src="videos/shiny.mp4" poster="videos/shiny.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: шины для квадроцикла"></video></div>
+        <div class="frame"><video data-src="videos/shiny.mp4" data-poster="videos/shiny.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: шины для квадроцикла"></video></div>
         <figcaption>Автотовары</figcaption>
       </figure>
     </div>
@@ -336,7 +350,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
           <div class="pc-search"><span>Поиск</span></div>
           <div class="pc-card">
             <div class="pc-media">
-              <video data-src="videos/kofe.mp4" poster="videos/kofe.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+              <video data-src="videos/kofe.mp4" data-poster="videos/kofe.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
               <span class="pc-like"></span>
               <span class="pc-badge">−35%</span>
             </div>
@@ -555,23 +569,22 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-src]'));
 
-  var hero = document.querySelector('.hero-media video');
-  if (hero) {
-    var wide = window.matchMedia('(min-width: 900px)').matches;
-    hero.setAttribute('poster', hero.getAttribute(wide ? 'data-poster-wide' : 'data-poster'));
+  var hero = document.getElementById('hero-video');
+  if (hero && hero.hasAttribute('data-on')) vids.push(hero);
+
+  var postersShown = false;
+  function setPoster(v){
+    var src = v.getAttribute('data-poster');
+    if (src && !v.getAttribute('poster')) v.setAttribute('poster', src);
   }
-  if (hero && !reduce) {
-    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    var slow = !!(conn && (conn.saveData || /2g/.test(conn.effectiveType || '')));
-    var small = window.matchMedia('(max-width: 899px)').matches;
-    if (!(small && slow)) {
-      Array.prototype.forEach.call(hero.querySelectorAll('source[data-src]'), function(src){
-        src.setAttribute('src', src.getAttribute('data-src'));
-      });
-      hero.load();
-      vids.push(hero);
-    }
+  function showPosters(){
+    if (postersShown) return;
+    postersShown = true;
+    Array.prototype.forEach.call(document.querySelectorAll('video[data-src][data-poster]'), setPoster);
   }
+  if (hero && hero.hasAttribute('data-on')) hero.addEventListener('playing', showPosters, { once: true });
+  window.addEventListener('scroll', showPosters, { once: true, passive: true });
+  setTimeout(showPosters, 2500);
 
   var blocked = [];
 
@@ -602,7 +615,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
         var v = en.target;
         if (en.isIntersecting) {
           var lazy = v.getAttribute('data-src');
-          if (lazy && !v.getAttribute('src')) { v.setAttribute('src', lazy); v.load(); }
+          if (lazy && !v.getAttribute('src')) { setPoster(v); v.setAttribute('src', lazy); v.load(); }
           play(v);
         } else if (!v.paused) {
           v.pause();
