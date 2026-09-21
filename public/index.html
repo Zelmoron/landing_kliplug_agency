@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Видео для карточки товара Wildberries и Ozon за 24 часа | Kliplug Agency</title>
+<meta name="description" content="Видео для карточки товара за 24 часа по вашим фото: ролик для Wildberries и Ozon без студии и съёмок. Формат 3:4 под требования площадки, от 5 000 ₽.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Видео для карточки Wildberries и Ozon за 24 часа">
+<meta property="og:description" content="Присылаете фото товара, получаете готовый ролик для карточки. Формат 3:4, от 5 000 ₽.">
+<meta name="theme-color" content="#0c110f">
+<link rel="icon" href="favicon.png">
+<link rel="preload" as="image" href="videos/hero-mobile.jpg" media="(max-width: 899px)" fetchpriority="high">
+<link rel="preload" as="image" href="videos/hero-desktop.jpg" media="(min-width: 900px)" fetchpriority="high">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  color-scheme:dark;
+  --bg:#0c110f;
+  --surface:#141c18;
+  --surface-2:#1b2520;
+  --line:#26312b;
+  --field:#66756d;
+  --text:#eef2ef;
+  --soft:#c9d3cd;
+  --muted:#9aa8a0;
+  --accent:#b4dcc2;
+  --accent-hi:#cdebd8;
+  --accent-ink:#0c1a12;
+  --error:#ff8a80;
+  --gutter:20px;
+  --wrap:1320px;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--bg)}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue","Noto Sans",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{display:block;max-width:100%}
+h1,h2,p,figure,ul,ol,dl,dd{margin:0}
+a{color:inherit}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+.wrap{width:100%;max-width:var(--wrap);margin-left:auto;margin-right:auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+.sec{padding-top:52px;padding-bottom:52px}
+
+h1{font-size:clamp(2.1rem,7.6vw,4rem);line-height:1.04;letter-spacing:-.034em;font-weight:700;text-wrap:balance}
+h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;font-weight:700;max-width:22ch;text-wrap:balance}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:100%;min-height:56px;padding:0 32px;
+  background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;
+  font:inherit;font-size:1.06rem;font-weight:600;letter-spacing:-.01em;
+  text-decoration:none;cursor:pointer;
+  transition:background .15s ease;
+}
+.btn:hover{background:var(--accent-hi)}
+@media(min-width:620px){.btn{width:auto;min-width:280px}}
+
+.hero{position:relative;isolation:isolate;display:flex;flex-direction:column;min-height:100vh;min-height:100svh;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:-1;background:var(--surface) url("videos/hero-mobile.jpg") no-repeat center/cover}
+.hero-media video{width:100%;height:100%;object-fit:cover}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(12,17,15,.6) 32%,rgba(12,17,15,.6) 100%)}
+.top{padding-top:22px;padding-bottom:16px}
+.brand{font-weight:700;font-size:1.14rem;letter-spacing:-.012em}
+.hero-body{margin-top:auto;padding-bottom:40px;text-shadow:0 1px 28px rgba(0,0,0,.35)}
+.hero-body > *{max-width:700px}
+.lead{margin-top:16px;font-size:clamp(1.06rem,3.7vw,1.3rem);line-height:1.5;color:var(--soft);max-width:34rem}
+.terms{margin-top:14px;font-weight:600;font-size:1rem;line-height:1.45}
+.cta-row{margin-top:26px}
+.hero .btn{text-shadow:none}
+
+.sub{margin-top:10px;color:var(--muted);font-size:clamp(1.02rem,3.4vw,1.14rem)}
+.strip{
+  margin-top:26px;
+  display:grid;grid-auto-flow:column;grid-auto-columns:min(64vw,280px);gap:14px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-padding-left:var(--gutter);
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding-left:var(--gutter);padding-right:var(--gutter);padding-bottom:4px;
+}
+.strip::-webkit-scrollbar{display:none}
+.work{scroll-snap-align:start}
+.work figcaption{margin-top:10px;font-weight:600;font-size:1rem;line-height:1.3;color:var(--soft)}
+.frame{position:relative;isolation:isolate;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:var(--surface-2)}
+.frame video{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+@media(min-width:620px){.strip{grid-auto-columns:min(40vw,280px)}}
+@media(min-width:1000px){
+  .strip{
+    grid-auto-flow:row;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;overflow:visible;
+    padding-left:max(var(--gutter),calc((100% - var(--wrap))/2 + var(--gutter)));
+    padding-right:max(var(--gutter),calc((100% - var(--wrap))/2 + var(--gutter)));
+  }
+}
+
+.statement{font-size:clamp(1.6rem,5.6vw,2.5rem);max-width:20ch}
+.prose{margin-top:20px;font-size:clamp(1.06rem,3.6vw,1.22rem);line-height:1.55;max-width:34rem;color:var(--soft)}
+
+.showcase{display:grid;row-gap:44px;justify-items:center}
+.showcase-text{justify-self:stretch}
+.phone{
+  --pw:240px;
+  position:relative;flex:none;
+  width:var(--pw);aspect-ratio:9/19.5;
+  font-size:calc(var(--pw) / 20);
+  padding:.5em;
+  border:2px solid #2a2a2a;border-radius:2.5em;
+  background:#070a09;
+  box-shadow:0 0 0 1px rgba(255,255,255,.04),0 0 36px rgba(180,220,194,.12),0 40px 70px -28px rgba(0,0,0,.8);
+}
+.phone::after{content:"";position:absolute;left:12%;right:12%;bottom:-2.2em;height:2em;z-index:-1;background:radial-gradient(closest-side,rgba(0,0,0,.7),rgba(0,0,0,0))}
+.phone-screen{position:relative;isolation:isolate;display:flex;flex-direction:column;height:100%;border-radius:2em;overflow:hidden;background:var(--surface)}
+.pc-status{display:flex;justify-content:space-between;align-items:center;flex:none;height:2.3em;padding:.4em 1.5em 0}
+.pc-time{font-size:.8em;font-weight:600;line-height:1}
+.pc-sys{width:3.4em;height:.95em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 12'%3E%3Crect x='0' y='8' width='3' height='4' rx='.8' fill='%23eef2ef'/%3E%3Crect x='4.5' y='5.5' width='3' height='6.5' rx='.8' fill='%23eef2ef'/%3E%3Crect x='9' y='3' width='3' height='9' rx='.8' fill='%23eef2ef'/%3E%3Crect x='13.5' y='0' width='3' height='12' rx='.8' fill='%23eef2ef'/%3E%3Crect x='21.5' y='.75' width='19' height='10.5' rx='3' fill='none' stroke='%23eef2ef' stroke-opacity='.5' stroke-width='1.2'/%3E%3Crect x='23.3' y='2.5' width='14' height='7' rx='1.6' fill='%23eef2ef'/%3E%3Crect x='41.6' y='4' width='1.6' height='4' rx='.8' fill='%23eef2ef' fill-opacity='.5'/%3E%3C/svg%3E") no-repeat right center/contain}
+.pc-search{display:flex;align-items:center;gap:.5em;flex:none;height:2.2em;margin:.3em .5em .6em;padding:0 .85em;border-radius:1.1em;background:#1f2924;color:var(--muted)}
+.pc-search::before{content:"";width:1em;height:1em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='%239aa8a0' stroke-width='2'/%3E%3Cpath d='M15.5 15.5L21 21' stroke='%239aa8a0' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/contain}
+.pc-search span{font-size:.82em}
+.pc-card{padding:0 .5em}
+.pc-media{position:relative;aspect-ratio:3/4;border-radius:.9em;overflow:hidden;isolation:isolate;background:var(--surface-2)}
+.pc-media video{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.pc-like{position:absolute;top:.55em;right:.55em;z-index:1;width:1.5em;height:1.5em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 20.3l-1.4-1.3C5.4 14.3 2 11.2 2 7.5 2 4.4 4.4 2 7.5 2c1.7 0 3.4.8 4.5 2.1C13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 3.7-3.4 6.8-8.6 11.5z' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
+.pc-badge{position:absolute;left:.55em;bottom:.55em;z-index:1;padding:.2em .55em;border-radius:.7em;background:var(--error);color:#2a0d0a;font-size:.78em;font-weight:700;line-height:1.2}
+.pc-price{display:flex;align-items:baseline;gap:.45em;margin-top:.65em}
+.pc-price b{font-size:1.45em;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.pc-price s{color:var(--muted);font-size:.82em}
+.pc-name{margin-top:.35em;font-size:.84em;line-height:1.35;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-rate{display:flex;align-items:center;gap:.3em;margin-top:.3em;font-size:.84em;line-height:1.3}
+.pc-rate i{width:1em;height:1em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z' fill='%23b4dcc2'/%3E%3C/svg%3E") no-repeat center/contain}
+.pc-rate span{color:var(--muted)}
+.pc-cart{display:flex;align-items:center;justify-content:center;gap:.5em;height:2.8em;margin-top:.75em;border-radius:.8em;background:var(--accent);color:var(--accent-ink);font-weight:600}
+.pc-cart i{width:1.15em;height:1.15em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L21 8H6.3' fill='none' stroke='%230c1a12' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='9.5' cy='19.5' r='1.6' fill='%230c1a12'/%3E%3Ccircle cx='17' cy='19.5' r='1.6' fill='%230c1a12'/%3E%3C/svg%3E") no-repeat center/contain}
+.pc-cart span{font-size:.95em}
+.pc-home{position:absolute;left:50%;bottom:.45em;width:36%;height:.28em;border-radius:1em;background:rgba(238,242,239,.4);transform:translateX(-50%)}
+@media(min-width:900px){
+  .showcase{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:center;justify-items:start}
+  .phone{--pw:320px}
+}
+@media(prefers-reduced-motion:no-preference){
+  .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .js .reveal.is-in{opacity:1;transform:none}
+}
+
+.checks{list-style:none;margin-top:24px;padding:0;max-width:720px}
+.checks li{position:relative;padding:16px 0 16px 36px;border-top:1px solid var(--line);font-size:1.08rem;line-height:1.4}
+.checks li:last-child{border-bottom:1px solid var(--line)}
+.checks li::before{
+  content:"";position:absolute;left:0;top:17px;width:22px;height:22px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M5 11.5l4 4 8-9' fill='none' stroke='%23b4dcc2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/22px;
+}
+.checks li span{display:block;margin-top:4px;color:var(--muted);font-size:1rem}
+
+.steps{list-style:none;margin-top:34px;padding:0;display:grid}
+.steps li{position:relative;border-top:1px solid var(--line);padding-top:24px;padding-bottom:26px}
+.steps .n{position:absolute;top:-.8em;left:0;padding-right:12px;background:var(--bg);color:var(--accent);font-weight:700;font-size:.95rem;line-height:1.6;font-variant-numeric:tabular-nums}
+.steps b{display:block;font-size:1.1rem;font-weight:600;letter-spacing:-.012em}
+.steps .d{display:block;margin-top:6px;color:var(--muted);line-height:1.45}
+@media(min-width:760px){
+  .steps{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .steps li{padding-top:26px;padding-bottom:0;padding-right:32px}
+}
+
+.plist{margin-top:24px;max-width:720px}
+.prow{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:20px 0;border-top:1px solid var(--line)}
+.prow:last-child{border-bottom:1px solid var(--line)}
+.pname b{display:block;font-size:1.12rem;font-weight:600;letter-spacing:-.01em}
+.pname span{display:block;margin-top:4px;color:var(--muted);font-size:.98rem;line-height:1.45}
+.pval{flex:none;font-size:clamp(1.45rem,5vw,1.9rem);font-weight:700;letter-spacing:-.025em;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.qa{margin-top:24px;max-width:720px}
+.qa > div{padding:18px 0;border-top:1px solid var(--line)}
+.qa > div:last-child{border-bottom:1px solid var(--line)}
+.qa dt{font-weight:600;font-size:1.08rem;line-height:1.4}
+.qa dd{margin-top:6px;color:var(--muted);line-height:1.5}
+.qa a{color:var(--accent);font-weight:600;text-underline-offset:3px}
+
+.order{scroll-margin-top:12px}
+.panel{display:grid;grid-template-areas:"head" "form" "talk";background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 20px 28px}
+.order-head{grid-area:head}
+.lead-form,.lead-done{grid-area:form}
+.order-talk{grid-area:talk;margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}
+.order-talk p{margin-bottom:12px;color:var(--muted);font-size:.95rem}
+.panel h2{max-width:18ch}
+.order-meta{margin-top:12px;color:var(--muted);font-size:.95rem;line-height:1.45}
+.lead-form{margin-top:10px}
+.field{display:block;margin-top:18px}
+.field > span{display:block;margin-bottom:8px;font-size:.95rem;font-weight:600}
+.input{
+  display:block;width:100%;height:54px;padding:0 16px;
+  border:1px solid var(--field);border-radius:12px;background:var(--bg);color:var(--text);
+  font:inherit;font-size:17px;
+  -webkit-appearance:none;appearance:none;
+}
+.input::placeholder{color:#7d8b83}
+.input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(180,220,194,.22)}
+.input[aria-invalid="true"]{border-color:var(--error)}
+.err{display:block;margin-top:6px;color:var(--error);font-size:.9rem;font-style:normal;line-height:1.4}
+.err:empty{display:none}
+.lead-form .btn{margin-top:26px;width:100%}
+.micro{margin-top:12px;color:var(--muted);font-size:.92rem;line-height:1.45}
+.form-status{margin-top:12px;color:var(--error);font-size:.92rem;line-height:1.45}
+.form-status:empty{display:none}
+.btn-ghost{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.btn-ghost:hover{background:rgba(180,220,194,.1)}
+.btn[disabled]{opacity:.6;cursor:progress}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.lead-done{align-self:center;margin-top:24px;padding:22px 0 0 40px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M5 11.5l4 4 8-9' fill='none' stroke='%23b4dcc2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat left 25px/26px;outline:none}
+.lead-done p{font-size:clamp(1.2rem,4vw,1.5rem);font-weight:600;line-height:1.35;max-width:22ch}
+
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom,0px));
+  background:rgba(12,17,15,.86);
+  border-top:1px solid var(--line);
+  backdrop-filter:saturate(160%) blur(12px);
+  -webkit-backdrop-filter:saturate(160%) blur(12px);
+  transition:transform .22s ease,opacity .22s ease;
+}
+.dock .btn{width:100%;min-width:0}
+.dock.off{transform:translateY(115%);opacity:0;pointer-events:none}
+@media(min-width:760px){.dock{display:none}}
+
+@media(min-width:760px){
+  :root{--gutter:40px}
+  body{font-size:18px}
+  .sec{padding-top:84px;padding-bottom:84px}
+  .top{padding-top:30px}
+  .hero-body{padding-bottom:72px}
+}
+@media(min-width:900px){
+  .hero-media{background-image:url("videos/hero-desktop.jpg")}
+  .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:start}
+  .split > :nth-child(2){margin-top:0}
+  .panel{grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-rows:auto 1fr;grid-template-areas:"head form" "talk form";column-gap:56px;align-items:start;padding:56px}
+  .order-talk{margin-top:36px;padding-top:0;border-top:0}
+  .lead-done{margin-top:0;padding-top:0;background-position:left 3px}
+  .lead-form{margin-top:-18px}
+}
+
+@media(min-width:1200px){
+  :root{--gutter:64px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="none" data-poster="videos/hero-mobile.jpg" data-poster-wide="videos/hero-desktop.jpg" disablepictureinpicture tabindex="-1">
+      <source data-src="videos/hero-desktop.mp4" media="(min-width: 900px)" type="video/mp4">
+      <source data-src="videos/hero-mobile.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="top wrap">
+    <span class="brand">Kliplug Agency</span>
+  </div>
+  <div class="hero-body wrap">
+    <h1>Видео для карточки Wildberries&nbsp;и&nbsp;Ozon за&nbsp;24&nbsp;часа</h1>
+    <p class="lead">Присылаете фото товара&nbsp;— получаете готовый ролик для карточки. Без студии, съёмок и&nbsp;фотографа.</p>
+    <p class="terms">От&nbsp;5&nbsp;000&nbsp;₽ · Формат 3:4&nbsp;под требования площадки</p>
+    <div class="cta-row">
+      <a class="btn" id="cta-hero" data-cta href="#zayavka">Получить ролик</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="works sec" id="raboty">
+    <div class="wrap">
+      <h2>Наши работы</h2>
+      <p class="sub">Сделано по&nbsp;фото из&nbsp;карточки</p>
+    </div>
+    <div class="strip">
+      <figure class="work">
+        <div class="frame"><video data-src="videos/videokarta.mp4" poster="videos/videokarta.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: видеокарта"></video></div>
+        <figcaption>Техника</figcaption>
+      </figure>
+      <figure class="work">
+        <div class="frame"><video data-src="videos/kofe.mp4" poster="videos/kofe.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: турецкий кофе"></video></div>
+        <figcaption>Продукты</figcaption>
+      </figure>
+      <figure class="work">
+        <div class="frame"><video data-src="videos/shiny.mp4" poster="videos/shiny.jpg" muted loop playsinline preload="none" disablepictureinpicture aria-label="Ролик для карточки: шины для квадроцикла"></video></div>
+        <figcaption>Автотовары</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="why sec">
+    <div class="wrap showcase reveal">
+      <div class="phone" aria-hidden="true">
+        <div class="phone-screen">
+          <div class="pc-status"><span class="pc-time">9:41</span><span class="pc-sys"></span></div>
+          <div class="pc-search"><span>Поиск</span></div>
+          <div class="pc-card">
+            <div class="pc-media">
+              <video data-src="videos/kofe.mp4" poster="videos/kofe.jpg" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+              <span class="pc-like"></span>
+              <span class="pc-badge">−35%</span>
+            </div>
+            <div class="pc-price"><b>1&nbsp;290&nbsp;₽</b><s>1&nbsp;990&nbsp;₽</s></div>
+            <div class="pc-name">Кофе молотый для&nbsp;турки, 250&nbsp;г</div>
+            <div class="pc-rate"><i></i>4,9 <span>· 128&nbsp;оценок</span></div>
+            <div class="pc-cart"><i></i><span>Завтра</span></div>
+          </div>
+          <span class="pc-home"></span>
+        </div>
+      </div>
+      <div class="showcase-text">
+        <h2 class="statement">Движение в&nbsp;карточке останавливает взгляд</h2>
+        <p class="prose">Покупатель листает выдачу быстро. Видео показывает товар в&nbsp;деле: как открывается, как сидит, как работает. Это то, чего не&nbsp;объясняет ни&nbsp;одно фото.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="get sec">
+    <div class="wrap split">
+      <h2>Что вы получаете</h2>
+      <ul class="checks">
+        <li>Ролик 4–30&nbsp;секунд</li>
+        <li>Формат 3:4&nbsp;под карточку WB и&nbsp;Ozon</li>
+        <li>Ваш реальный товар с&nbsp;ваших фото<span>не&nbsp;похожий, а&nbsp;тот же самый</span></li>
+        <li>2&nbsp;правки включены</li>
+        <li>Готово за&nbsp;24&nbsp;часа с&nbsp;момента подтверждения заявки</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="how sec">
+    <div class="wrap">
+      <h2>Как работаем</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><b>Заявка</b><span class="d">Присылаете фото товара и&nbsp;пару слов о&nbsp;нём.</span></li>
+        <li><span class="n">2</span><b>Подтверждение</b><span class="d">Согласуем идею и&nbsp;стоимость.</span></li>
+        <li><span class="n">3</span><b>Ролик за&nbsp;24&nbsp;часа</b><span class="d">Отдаём готовое видео.</span></li>
+        <li><span class="n">4</span><b>Правки</b><span class="d">Две итерации включены в&nbsp;стоимость.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="prices sec">
+    <div class="wrap split">
+      <h2>Цены</h2>
+      <div class="plist">
+        <div class="prow">
+          <div class="pname"><b>Один ролик</b><span>Для одного товара. Срок 24&nbsp;часа.</span></div>
+          <div class="pval">5&nbsp;000&nbsp;₽</div>
+        </div>
+        <div class="prow">
+          <div class="pname"><b>3&nbsp;ролика</b><span>Для нескольких товаров или вариантов одной карточки.</span></div>
+          <div class="pval">12&nbsp;000&nbsp;₽</div>
+        </div>
+        <div class="prow">
+          <div class="pname"><b>10&nbsp;роликов</b><span>Для магазина с&nbsp;большим ассортиментом. Срок согласовываем.</span></div>
+          <div class="pval">35&nbsp;000&nbsp;₽</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq sec">
+    <div class="wrap split">
+      <h2>Частые вопросы</h2>
+      <dl class="qa">
+        <div>
+          <dt>Нужно присылать товар физически?</dt>
+          <dd>Нет. Достаточно фотографий, которые у&nbsp;вас уже есть для карточки.</dd>
+        </div>
+        <div>
+          <dt>Товар будет выглядеть как мой?</dt>
+          <dd>Да, мы отталкиваемся от&nbsp;ваших фото&nbsp;— товар в&nbsp;кадре ваш. Перед работой согласуем референс, чтобы не&nbsp;было расхождений.</dd>
+        </div>
+        <div>
+          <dt>Что если не&nbsp;понравится результат?</dt>
+          <dd>Две правки входят в&nbsp;стоимость. Обсуждаем до&nbsp;нужного результата.</dd>
+        </div>
+        <div>
+          <dt>Подойдёт ли для моей категории?</dt>
+          <dd><a data-tg href="https://t.me/USERNAME" target="_blank" rel="noopener">Напишите нам</a>&nbsp;— скажем честно, получится или нет.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="order sec" id="zayavka">
+    <div class="wrap">
+      <div class="panel">
+        <div class="order-head">
+          <h2>Оставьте заявку или напишите нам</h2>
+          <p class="order-meta">24&nbsp;часа · 2&nbsp;правки · формат 3:4</p>
+        </div>
+        <form class="lead-form" id="lead" action="/api/lead" method="post" novalidate>
+          <label class="field">
+            <span>Имя</span>
+            <input class="input ym-disable-keys" name="name" type="text" autocomplete="name" required aria-describedby="err-name">
+            <em class="err" id="err-name" aria-live="polite"></em>
+          </label>
+          <label class="field">
+            <span>Telegram или телефон</span>
+            <input class="input ym-disable-keys" name="contact" type="text" autocomplete="tel" placeholder="@username или номер" required aria-describedby="err-contact">
+            <em class="err" id="err-contact" aria-live="polite"></em>
+          </label>
+          <label class="field">
+            <span>Ссылка на карточку</span>
+            <input class="input ym-disable-keys" name="card" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="wildberries.ru/... или ozon.ru/..." required aria-describedby="err-card">
+            <em class="err" id="err-card" aria-live="polite"></em>
+          </label>
+          <div class="hp" aria-hidden="true"><label>Сайт <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <button class="btn" type="submit">Отправить заявку</button>
+          <p class="form-status" id="lead-status" role="alert"></p>
+          <p class="micro">Посмотрим карточку и&nbsp;напишем вам в&nbsp;течение часа</p>
+        </form>
+        <div class="lead-done" id="lead-done" role="status" tabindex="-1" hidden>
+          <p>Заявка отправлена. Напишем вам в&nbsp;течение часа.</p>
+        </div>
+        <div class="order-talk">
+          <p>Хотите обсудить сразу:</p>
+          <a class="btn btn-ghost" data-tg href="https://t.me/USERNAME" target="_blank" rel="noopener">Написать в&nbsp;Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="dock off" id="dock">
+  <a class="btn" data-cta href="#zayavka">Получить ролик</a>
+</div>
+<noscript><style>.dock{transform:none;opacity:1;pointer-events:auto}</style></noscript>
+
+<script>
+(function(){
+  var YM_ID = '[ID_МЕТРИКИ]';
+  var LEAD_URL = '/api/lead';
+  var idOk = /^\d+$/.test(YM_ID);
+
+  if (idOk) {
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j=0;j<e.scripts.length;j++){if(e.scripts[j].src===r){return;}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+    ym(+YM_ID,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+  }
+
+  function goal(name){
+    if (idOk && typeof window.ym === 'function') window.ym(+YM_ID,'reachGoal',name);
+  }
+
+  document.addEventListener('click', function(ev){
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    if (t.closest('[data-tg]')) goal('tg_click');
+    if (t.closest('[data-cta]')) goal('cta_click');
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-src]'));
+
+  var hero = document.querySelector('.hero-media video');
+  if (hero) {
+    var wide = window.matchMedia('(min-width: 900px)').matches;
+    hero.setAttribute('poster', hero.getAttribute(wide ? 'data-poster-wide' : 'data-poster'));
+  }
+  if (hero && !reduce) {
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    var slow = !!(conn && (conn.saveData || /2g|3g/.test(conn.effectiveType || '')));
+    var small = window.matchMedia('(max-width: 899px)').matches;
+    if (!(small && slow)) {
+      Array.prototype.forEach.call(hero.querySelectorAll('source[data-src]'), function(src){
+        src.setAttribute('src', src.getAttribute('data-src'));
+      });
+      hero.load();
+      vids.push(hero);
+    }
+  }
+
+  function play(v){
+    if (reduce) return;
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){});
+  }
+
+  if ('IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var v = en.target;
+        if (en.isIntersecting) {
+          var lazy = v.getAttribute('data-src');
+          if (lazy && !v.getAttribute('src')) { v.setAttribute('src', lazy); v.load(); }
+          play(v);
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, {threshold:0});
+    vids.forEach(function(v){ vio.observe(v); });
+  } else {
+    vids.forEach(function(v){
+      var lazy = v.getAttribute('data-src');
+      if (lazy) v.setAttribute('src', lazy);
+    });
+  }
+
+  if (reduce) {
+    vids.forEach(function(v){
+      v.removeAttribute('autoplay');
+      v.pause();
+      if (v.hasAttribute('data-src')) v.setAttribute('controls','');
+    });
+  }
+
+  var form = document.getElementById('lead');
+  if (form) {
+    var btn = form.querySelector('button[type=submit]');
+    var btnText = btn.textContent;
+    var statusBox = document.getElementById('lead-status');
+    var doneBox = document.getElementById('lead-done');
+    var rules = [['name','Укажите имя'],['contact','Укажите Telegram или телефон'],['card','Добавьте ссылку на карточку']];
+    var busy = false;
+
+    function setError(name, msg) {
+      var input = form.elements[name];
+      var err = document.getElementById('err-' + name);
+      if (!input || !err) return;
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      err.textContent = msg || '';
+    }
+
+    function focusFirstError() {
+      for (var i = 0; i < rules.length; i++) {
+        var input = form.elements[rules[i][0]];
+        if (input.getAttribute('aria-invalid') === 'true') { input.focus(); return; }
+      }
+    }
+
+    function release() {
+      busy = false;
+      btn.disabled = false;
+      btn.textContent = btnText;
+    }
+
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      if (busy) return;
+      var bad = false;
+      rules.forEach(function(r){
+        var empty = !form.elements[r[0]].value.trim();
+        setError(r[0], empty ? r[1] : '');
+        if (empty) bad = true;
+      });
+      if (bad) { focusFirstError(); return; }
+
+      busy = true;
+      btn.disabled = true;
+      btn.textContent = 'Отправляем…';
+      statusBox.textContent = '';
+
+      fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: form.elements.name.value,
+          contact: form.elements.contact.value,
+          card: form.elements.card.value,
+          website: form.elements.website.value
+        })
+      }).then(function(res){
+        return res.json().catch(function(){ return {}; }).then(function(body){ return { status: res.status, body: body }; });
+      }).then(function(r){
+        if (r.status === 200) {
+          goal('form_submit');
+          form.hidden = true;
+          doneBox.hidden = false;
+          doneBox.focus();
+          return;
+        }
+        if (r.status === 400 && r.body && r.body.fields) {
+          Object.keys(r.body.fields).forEach(function(k){ setError(k, r.body.fields[k]); });
+          focusFirstError();
+        } else if (r.status === 429) {
+          statusBox.textContent = 'Слишком много заявок подряд. Попробуйте через несколько минут.';
+        } else {
+          statusBox.textContent = 'Не получилось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.';
+        }
+        release();
+      }).catch(function(){
+        statusBox.textContent = 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.';
+        release();
+      });
+    });
+
+    form.addEventListener('input', function(ev){
+      var t = ev.target;
+      if (t.getAttribute('aria-invalid') === 'true' && t.value.trim()) setError(t.name, '');
+    });
+  }
+
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var rio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('is-in'); rio.unobserve(en.target); }
+      });
+    }, {threshold:0.15});
+    Array.prototype.forEach.call(reveals, function(el){ rio.observe(el); });
+  } else {
+    Array.prototype.forEach.call(reveals, function(el){ el.classList.add('is-in'); });
+  }
+
+  var dock = document.getElementById('dock');
+  var watch = [document.getElementById('cta-hero'), document.getElementById('zayavka')];
+  if (dock && 'IntersectionObserver' in window) {
+    var seen = [false,false];
+    var dio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var i = watch.indexOf(en.target);
+        if (i > -1) seen[i] = en.isIntersecting;
+      });
+      dock.classList.toggle('off', seen[0] || seen[1]);
+    }, {threshold:0});
+    watch.forEach(function(el){ if (el) dio.observe(el); });
+  } else if (dock) {
+    dock.classList.remove('off');
+  }
+})();
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/[ID_МЕТРИКИ]" style="position:absolute;left:-9999px" alt=""></div></noscript>
+
+</body>
+</html>
