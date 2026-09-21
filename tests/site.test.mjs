@@ -53,14 +53,15 @@ describe('public/index.html', () => {
   });
 
   it('wires the lead form with two required fields and a honeypot', () => {
-    assert.match(html, /<form[^>]+id="lead"[^>]+action="\/api\/lead"[^>]+method="post"/);
+    assert.match(html, /<form[^>]+id="lead"[^>]+action="https:\/\/n8n\.ixore\.ru\/webhook\/kliplug-lead"[^>]+method="post"/);
     assert.doesNotMatch(html, /name="name"/);
     for (const name of ['contact', 'card']) {
       assert.match(html, new RegExp(`name="${name}"[^>]*required`), name);
       assert.match(html, new RegExp(`id="err-${name}"`), name);
     }
     assert.match(html, /name="website"/);
-    assert.match(html, /var LEAD_URL = '\/api\/lead';/);
+    assert.match(html, /var LEAD_URL = 'https:\/\/n8n\.ixore\.ru\/webhook\/kliplug-lead';/);
+    assert.match(html, /r\.status >= 200 && r\.status < 300/);
     assert.match(html, /fetch\(LEAD_URL,/);
   });
 

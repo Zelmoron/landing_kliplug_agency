@@ -445,7 +445,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
           <h2>Оставьте заявку или напишите нам</h2>
           <p class="order-meta">24&nbsp;часа · 2&nbsp;правки · формат 3:4</p>
         </div>
-        <form class="lead-form" id="lead" action="/api/lead" method="post" novalidate>
+        <form class="lead-form" id="lead" action="https://n8n.ixore.ru/webhook/kliplug-lead" method="post" novalidate>
           <label class="field">
             <span>Telegram или телефон</span>
             <input class="input ym-disable-keys" name="contact" type="text" autocomplete="tel" placeholder="@username или номер" required aria-describedby="err-contact">
@@ -508,7 +508,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
 <script>
 (function(){
   var YM_ID = '[ID_МЕТРИКИ]';
-  var LEAD_URL = '/api/lead';
+  var LEAD_URL = 'https://n8n.ixore.ru/webhook/kliplug-lead';
   var idOk = /^\d+$/.test(YM_ID);
 
   var CONSENT_KEY = 'kliplug-cookie-consent';
@@ -706,7 +706,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
       }).then(function(res){
         return res.json().catch(function(){ return {}; }).then(function(body){ return { status: res.status, body: body }; });
       }).then(function(r){
-        if (r.status === 200) {
+        if (r.status >= 200 && r.status < 300) {
           goal('form_submit');
           form.hidden = true;
           doneBox.hidden = false;
