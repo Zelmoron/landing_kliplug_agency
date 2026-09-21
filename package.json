@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "python3 -m http.server 3000 --directory public",
+    "dev": "npx --yes serve@14 public -l 3000 -n",
     "test": "node --test tests/*.test.mjs"
   }
 }

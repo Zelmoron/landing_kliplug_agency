@@ -6,7 +6,7 @@ import { before, describe, it } from 'node:test';
 
 const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../public');
 const LEGAL_PAGES = ['privacy', 'consent', 'offer'];
-const OPERATOR = ['Акимов Игорь Дмитриевич', '381297228244'];
+const OPERATOR = ['Акимов Игорь Дмитриевич', '381297228244', 'support@kliplug.ru'];
 
 const read = (rel) => readFile(path.join(publicDir, rel), 'utf8');
 const plain = (html) => html.replace(/&nbsp;/g, ' ');
@@ -52,9 +52,10 @@ describe('public/index.html', () => {
     assert.match(html, /<meta name="description" content="[^"]{50,}">/);
   });
 
-  it('wires the lead form with three required fields and a honeypot', () => {
+  it('wires the lead form with two required fields and a honeypot', () => {
     assert.match(html, /<form[^>]+id="lead"[^>]+action="\/api\/lead"[^>]+method="post"/);
-    for (const name of ['name', 'contact', 'card']) {
+    assert.doesNotMatch(html, /name="name"/);
+    for (const name of ['contact', 'card']) {
       assert.match(html, new RegExp(`name="${name}"[^>]*required`), name);
       assert.match(html, new RegExp(`id="err-${name}"`), name);
     }

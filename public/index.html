@@ -433,11 +433,6 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
         </div>
         <form class="lead-form" id="lead" action="/api/lead" method="post" novalidate>
           <label class="field">
-            <span>Имя</span>
-            <input class="input ym-disable-keys" name="name" type="text" autocomplete="name" required aria-describedby="err-name">
-            <em class="err" id="err-name" aria-live="polite"></em>
-          </label>
-          <label class="field">
             <span>Telegram или телефон</span>
             <input class="input ym-disable-keys" name="contact" type="text" autocomplete="tel" placeholder="@username или номер" required aria-describedby="err-contact">
             <em class="err" id="err-contact" aria-live="polite"></em>
@@ -474,7 +469,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
 <footer class="site-foot" id="site-foot">
   <div class="wrap">
     <p>Самозанятый Акимов Игорь Дмитриевич, ИНН&nbsp;381297228244, г.&nbsp;Иркутск</p>
-    <p><a href="mailto:support@glasarity.com">support@glasarity.com</a>, Telegram <a data-tg href="https://t.me/kliplug_agency" target="_blank" rel="noopener">@kliplug_agency</a></p>
+    <p><a href="mailto:support@kliplug.ru">support@kliplug.ru</a>, Telegram <a data-tg href="https://t.me/kliplug_agency" target="_blank" rel="noopener">@kliplug_agency</a></p>
     <nav>
       <a href="/privacy/">Политика обработки персональных данных</a>
       <a href="/consent/">Согласие на&nbsp;обработку персональных данных</a>
@@ -619,7 +614,7 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
     var btnText = btn.textContent;
     var statusBox = document.getElementById('lead-status');
     var doneBox = document.getElementById('lead-done');
-    var rules = [['name','Укажите имя'],['contact','Укажите Telegram или телефон'],['card','Добавьте ссылку на карточку']];
+    var rules = [['contact','Укажите Telegram или телефон'],['card','Добавьте ссылку на карточку']];
     var consentBox = form.elements.consent;
     var consentErr = document.getElementById('err-consent');
 
@@ -673,7 +668,6 @@ h2{font-size:clamp(1.5rem,5vw,2.1rem);line-height:1.18;letter-spacing:-.022em;fo
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          name: form.elements.name.value,
           contact: form.elements.contact.value,
           card: form.elements.card.value,
           consent: true,
