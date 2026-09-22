@@ -202,3 +202,29 @@ describe('robots.txt, sitemap.xml and canonical links', () => {
     await access(path.join(publicDir, m[1]));
   });
 });
+
+describe('prices', () => {
+  it('shows exactly the four approved price rows', () => {
+    const block = plain(html.match(/<div class="plist">[\s\S]*?\n      <\/div>/)[0]);
+    const rows = [...block.matchAll(/<b>([^<]+)<\/b>[\s\S]*?<div class="pval">([^<]+)<\/div>/g)].map((m) => `${m[1]} = ${m[2]}`);
+    assert.deepEqual(rows, [
+      'Ролик до 10 секунд = 2 990 ₽',
+      'Ролик 10–15 секунд = 3 900 ₽',
+      '3 ролика по 10 секунд = 7 900 ₽',
+      '10 роликов по 10 секунд = 24 000 ₽',
+    ]);
+  });
+
+  it('starts the hero price and descriptions from the lowest price', () => {
+    const text = plain(html);
+    assert.match(text, /<p class="terms">От 2 990 ₽ ·/);
+    assert.match(text, /<meta name="description" content="[^"]*от 2 990 ₽/);
+    assert.doesNotMatch(text, /5 000|12 000|35 000|4–30/);
+  });
+
+  it('matches video durations in the offer', async () => {
+    const offer = plain(await read('offer/index.html'));
+    assert.match(offer, /до 10 секунд или от 10 до 15 секунд/);
+    assert.doesNotMatch(offer, /30 секунд/);
+  });
+});
