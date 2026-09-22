@@ -228,3 +228,20 @@ describe('prices', () => {
     assert.doesNotMatch(offer, /30 секунд/);
   });
 });
+
+describe('metrika goals', () => {
+  it('sends form_submit only from the successful webhook response branch', () => {
+    assert.equal((html.match(/goal\('form_submit'\)/g) || []).length, 1);
+    const success = html.match(/if \(r\.status >= 200 && r\.status < 300\) \{([\s\S]*?)\n        \}/);
+    assert.ok(success, 'success branch is missing');
+    assert.match(success[1], /goal\('form_submit'\);/);
+    const catchBlock = html.match(/\}\)\.catch\(function\(\)\{([\s\S]*?)\}\);/);
+    assert.ok(catchBlock && !catchBlock[1].includes('form_submit'));
+  });
+
+  it('routes goals to counter 112868048', () => {
+    assert.match(html, /window\.ym\(\+YM_ID,'reachGoal',name\)/);
+    assert.match(html, /var YM_ID = '112868048';/);
+    for (const name of ['tg_click', 'cta_click']) assert.match(html, new RegExp(`goal\\('${name}'\\)`), name);
+  });
+});
