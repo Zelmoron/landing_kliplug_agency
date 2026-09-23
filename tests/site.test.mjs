@@ -245,3 +245,11 @@ describe('metrika goals', () => {
     for (const name of ['tg_click', 'cta_click']) assert.match(html, new RegExp(`goal\\('${name}'\\)`), name);
   });
 });
+
+describe('anchors for Yandex Direct quick links', () => {
+  it('has an id on every section a quick link points to', () => {
+    for (const id of ['raboty', 'kak-rabotaem', 'ceny', 'voprosy', 'zayavka']) {
+      assert.match(html, new RegExp(`<section class="[^"]*" id="${id}">`), id);
+    }
+  });
+});
