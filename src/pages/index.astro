@@ -1,0 +1,353 @@
+---
+import { Font, getImage } from 'astro:assets';
+import '../styles/global.css';
+import Hero from '../components/Hero.astro';
+import Works from '../components/Works.astro';
+import Motion from '../components/Motion.astro';
+import Get from '../components/Get.astro';
+import Steps from '../components/Steps.astro';
+import Prices from '../components/Prices.astro';
+import Faq from '../components/Faq.astro';
+import Lead from '../components/Lead.astro';
+import Footer from '../components/Footer.astro';
+import heroMobile from '../assets/posters/hero-mobile.jpg';
+import heroDesktop from '../assets/posters/hero-desktop.jpg';
+
+const posterOptions = { format: 'webp', quality: 72 } as const;
+const [posterMobile, posterDesktop, ogImage] = await Promise.all([
+  getImage({ src: heroMobile, ...posterOptions }),
+  getImage({ src: heroDesktop, ...posterOptions }),
+  getImage({ src: heroDesktop, format: 'jpg', quality: 82 }),
+]);
+const ogImageUrl = new URL(ogImage.src, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Видео для карточки товара Wildberries и Ozon за 24 часа | Kliplug Agency</title>
+<meta name="description" content="Видео для карточки товара за 24 часа по вашим фото: ролик для Wildberries и Ozon без студии и съёмок. Формат 3:4 под требования площадки, от 2 990 ₽.">
+<link rel="canonical" href="https://kliplug.ru/">
+<meta property="og:url" content="https://kliplug.ru/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Видео для карточки Wildberries и Ozon за 24 часа">
+<meta property="og:description" content="Присылаете фото товара, получаете готовый ролик для карточки. Формат 3:4, от 2 990 ₽.">
+<meta property="og:image" content={ogImageUrl}>
+<meta property="og:site_name" content="Kliplug Agency">
+<meta name="theme-color" content="#0D0D0E">
+<meta name="yandex-verification" content="dd0a02c47e8ffda9">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preload" as="image" href={posterMobile.src} media="(max-width: 899px)" fetchpriority="high">
+<link rel="preload" as="image" href={posterDesktop.src} media="(min-width: 900px)" fetchpriority="high">
+<Font cssVariable="--font-oswald" preload />
+</head>
+<body>
+
+<Hero posterMobile={posterMobile.src} posterDesktop={posterDesktop.src} />
+
+<main>
+  <section class="works" id="raboty">
+    <Works />
+  </section>
+  <Motion />
+  <Get />
+  <Steps />
+  <Prices />
+  <section class="faq" id="voprosy">
+    <div class="wrap faq-grid">
+      <h2>Частые вопросы</h2>
+      <Faq />
+    </div>
+  </section>
+  <Lead />
+</main>
+
+<Footer />
+
+<div class="cookie" id="cookie" role="region" aria-label="Уведомление об использовании cookie" hidden>
+  <p>Мы используем cookie и&nbsp;Яндекс Метрику, чтобы понимать, как работает сайт. Подробнее в&nbsp;<a href="/privacy/">политике обработки персональных данных</a>.</p>
+  <div class="cookie-actions">
+    <button class="btn" type="button" data-cookie="accepted">Принять</button>
+    <button class="btn-text" type="button" data-cookie="declined">Отказаться</button>
+  </div>
+</div>
+
+<div class="dock off" id="dock">
+  <a class="btn" data-cta href="#zayavka">Получить ролик</a>
+</div>
+<noscript><style is:inline>.dock{transform:none;opacity:1;pointer-events:auto}</style></noscript>
+
+<script is:inline>
+(function(){
+  var YM_ID = '112868048';
+  var LEAD_URL = 'https://n8n.ixore.ru/webhook/kliplug-lead';
+  var idOk = /^\d+$/.test(YM_ID) && /^(www\.)?kliplug\.ru$/.test(location.hostname);
+
+  var CONSENT_KEY = 'kliplug-cookie-consent';
+  var metrikaOn = false;
+
+  function readConsent(){
+    try { return window.localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+  }
+
+  function saveConsent(value){
+    try { window.localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
+  }
+
+  function loadMetrika(){
+    if (!idOk || metrikaOn) return;
+    metrikaOn = true;
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j=0;j<e.scripts.length;j++){if(e.scripts[j].src===r){return;}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=' + YM_ID,'ym');
+    ym(+YM_ID,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:'dataLayer',referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
+  }
+
+  if (readConsent() === 'accepted') loadMetrika();
+
+  var cookieBar = document.getElementById('cookie');
+  var cookieOpen = false;
+  var updateDock = function(){};
+  if (cookieBar && !readConsent()) {
+    cookieBar.hidden = false;
+    cookieOpen = true;
+  }
+  if (cookieBar) {
+    cookieBar.addEventListener('click', function(ev){
+      var btn = ev.target && ev.target.closest ? ev.target.closest('[data-cookie]') : null;
+      if (!btn) return;
+      var choice = btn.getAttribute('data-cookie');
+      saveConsent(choice);
+      cookieBar.hidden = true;
+      cookieOpen = false;
+      updateDock();
+      if (choice === 'accepted') loadMetrika();
+    });
+  }
+
+  function goal(name){
+    if (idOk && typeof window.ym === 'function') window.ym(+YM_ID,'reachGoal',name);
+  }
+
+  document.addEventListener('click', function(ev){
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    if (t.closest('[data-tg]')) goal('tg_click');
+    if (t.closest('[data-cta]')) goal('cta_click');
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-src]'));
+
+  var hero = document.getElementById('hero-video');
+  if (hero && hero.hasAttribute('data-on')) vids.push(hero);
+
+  var postersShown = false;
+  function setPoster(v){
+    var src = v.getAttribute('data-poster');
+    if (src && !v.getAttribute('poster')) v.setAttribute('poster', src);
+  }
+  function showPosters(){
+    if (postersShown) return;
+    postersShown = true;
+    Array.prototype.forEach.call(document.querySelectorAll('video[data-src][data-poster]'), setPoster);
+  }
+  if (hero && hero.hasAttribute('data-on')) hero.addEventListener('playing', showPosters, { once: true });
+  window.addEventListener('scroll', showPosters, { once: true, passive: true });
+  setTimeout(showPosters, 2500);
+
+  var blocked = [];
+
+  function onScreen(v){
+    var r = v.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth;
+  }
+
+  function play(v){
+    if (reduce) return;
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){ if (blocked.indexOf(v) < 0) blocked.push(v); });
+  }
+
+  function retryBlocked(){
+    var list = blocked;
+    blocked = [];
+    list.forEach(function(v){ if (onScreen(v)) play(v); else blocked.push(v); });
+  }
+
+  ['touchstart','click','keydown'].forEach(function(type){
+    document.addEventListener(type, retryBlocked, { passive: true });
+  });
+
+  if ('IntersectionObserver' in window) {
+    var vio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var v = en.target;
+        if (en.isIntersecting) {
+          var lazy = v.getAttribute('data-src');
+          if (lazy && !v.getAttribute('src')) { setPoster(v); v.setAttribute('src', lazy); v.load(); }
+          play(v);
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, {threshold:0});
+    vids.forEach(function(v){ vio.observe(v); });
+  } else {
+    vids.forEach(function(v){
+      var lazy = v.getAttribute('data-src');
+      if (lazy) v.setAttribute('src', lazy);
+    });
+  }
+
+  if (reduce) {
+    vids.forEach(function(v){
+      v.removeAttribute('autoplay');
+      v.pause();
+      if (v.hasAttribute('data-src')) v.setAttribute('controls','');
+    });
+  }
+
+  var form = document.getElementById('lead');
+  if (form) {
+    var btn = form.querySelector('button[type=submit]');
+    var btnText = btn.textContent;
+    var statusBox = document.getElementById('lead-status');
+    var doneBox = document.getElementById('lead-done');
+    var rules = [['contact','Укажите Telegram или телефон'],['card','Добавьте ссылку на карточку']];
+    var consentBox = form.elements.consent;
+    var consentErr = document.getElementById('err-consent');
+
+    function setConsentError(msg) {
+      consentBox.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      consentErr.textContent = msg || '';
+    }
+    var busy = false;
+
+    function setError(name, msg) {
+      var input = form.elements[name];
+      var err = document.getElementById('err-' + name);
+      if (!input || !err) return;
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      err.textContent = msg || '';
+    }
+
+    function focusFirstError() {
+      for (var i = 0; i < rules.length; i++) {
+        var input = form.elements[rules[i][0]];
+        if (input.getAttribute('aria-invalid') === 'true') { input.focus(); return; }
+      }
+    }
+
+    function release() {
+      busy = false;
+      btn.disabled = false;
+      btn.textContent = btnText;
+    }
+
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      if (busy) return;
+      var bad = false;
+      rules.forEach(function(r){
+        var empty = !form.elements[r[0]].value.trim();
+        setError(r[0], empty ? r[1] : '');
+        if (empty) bad = true;
+      });
+      var noConsent = !consentBox.checked;
+      setConsentError(noConsent ? 'Нужно согласие на обработку персональных данных' : '');
+      if (bad) { focusFirstError(); return; }
+      if (noConsent) { consentBox.focus(); return; }
+
+      busy = true;
+      btn.disabled = true;
+      btn.textContent = 'Отправляем…';
+      statusBox.textContent = '';
+
+      fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          contact: form.elements.contact.value,
+          card: form.elements.card.value,
+          consent: true,
+          website: form.elements.website.value
+        })
+      }).then(function(res){
+        return res.json().catch(function(){ return {}; }).then(function(body){ return { status: res.status, body: body }; });
+      }).then(function(r){
+        if (r.status >= 200 && r.status < 300) {
+          goal('form_submit');
+          form.hidden = true;
+          doneBox.hidden = false;
+          doneBox.focus();
+          return;
+        }
+        if (r.status === 400 && r.body && r.body.fields) {
+          Object.keys(r.body.fields).forEach(function(k){
+            if (k === 'consent') setConsentError(r.body.fields[k]); else setError(k, r.body.fields[k]);
+          });
+          focusFirstError();
+        } else if (r.status === 429) {
+          statusBox.textContent = 'Слишком много заявок подряд. Попробуйте через несколько минут.';
+        } else {
+          statusBox.textContent = 'Не получилось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.';
+        }
+        release();
+      }).catch(function(){
+        statusBox.textContent = 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.';
+        release();
+      });
+    });
+
+    consentBox.addEventListener('change', function(){
+      if (consentBox.checked) setConsentError('');
+    });
+
+    form.addEventListener('input', function(ev){
+      var t = ev.target;
+      if (t === consentBox) return;
+      if (t.getAttribute('aria-invalid') === 'true' && t.value.trim()) setError(t.name, '');
+    });
+  }
+
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var rio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) { en.target.classList.add('is-in'); rio.unobserve(en.target); }
+      });
+    }, {threshold:0.15});
+    Array.prototype.forEach.call(reveals, function(el){ rio.observe(el); });
+  } else {
+    Array.prototype.forEach.call(reveals, function(el){ el.classList.add('is-in'); });
+  }
+
+  var dock = document.getElementById('dock');
+  var watch = [document.getElementById('cta-hero'), document.getElementById('zayavka'), document.getElementById('site-foot')];
+  if (dock && 'IntersectionObserver' in window) {
+    var seen = [false,false,false];
+    updateDock = function(){
+      dock.classList.toggle('off', cookieOpen || seen[0] || seen[1] || seen[2]);
+    };
+    var dio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var i = watch.indexOf(en.target);
+        if (i > -1) seen[i] = en.isIntersecting;
+      });
+      updateDock();
+    }, {threshold:0});
+    watch.forEach(function(el){ if (el) dio.observe(el); });
+  } else if (dock) {
+    dock.classList.remove('off');
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,15 +1,15 @@
 import assert from 'node:assert/strict';
-import { access, readFile } from 'node:fs/promises';
+import { access, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { before, describe, it } from 'node:test';
 
-const publicDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../public');
+const distDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist');
 const LEGAL_PAGES = ['privacy', 'consent', 'offer'];
 const OPERATOR = ['Акимов Игорь Дмитриевич', '381297228244', 'support@kliplug.ru'];
 
-const read = (rel) => readFile(path.join(publicDir, rel), 'utf8');
-const plain = (html) => html.replace(/&nbsp;/g, ' ');
+const read = (rel) => readFile(path.join(distDir, rel), 'utf8');
+const plain = (html) => html.replace(/<!--[\s\S]*?-->/g, '').replace(/&nbsp;|\u00a0/g, ' ');
 
 async function missingRefs(html, baseDir) {
   const refs = new Set();
@@ -17,7 +17,7 @@ async function missingRefs(html, baseDir) {
   for (const m of html.matchAll(/url\("((?!data:)[^")]+)"\)/g)) refs.add(m[1]);
   const missing = [];
   for (const ref of refs) {
-    const file = ref.startsWith('/') ? path.join(publicDir, ref) : path.join(baseDir, ref);
+    const file = ref.startsWith('/') ? path.join(distDir, ref) : path.join(baseDir, ref);
     try {
       await access(file);
     } catch {
@@ -32,9 +32,9 @@ before(async () => {
   html = await read('index.html');
 });
 
-describe('public/index.html', () => {
-  it('references only files that exist in public/', async () => {
-    const { refs, missing } = await missingRefs(html, publicDir);
+describe('dist/index.html', () => {
+  it('references only files that exist in dist/', async () => {
+    const { refs, missing } = await missingRefs(html, distDir);
     assert.ok(refs.size >= 10, `found only ${refs.size} references`);
     assert.deepEqual(missing, []);
   });
@@ -42,7 +42,7 @@ describe('public/index.html', () => {
   it('links only to internal pages that exist', async () => {
     const pages = [...new Set([...html.matchAll(/href="\/([a-z-]+)\/"/g)].map((m) => m[1]))];
     assert.deepEqual(pages.sort(), [...LEGAL_PAGES].sort());
-    for (const page of pages) await access(path.join(publicDir, page, 'index.html'));
+    for (const page of pages) await access(path.join(distDir, page, 'index.html'));
   });
 
   it('has the head tags the ad landing needs', () => {
@@ -144,7 +144,7 @@ describe('legal pages', () => {
       });
 
       it('references only existing assets and legal pages', async () => {
-        const { missing } = await missingRefs(doc, path.join(publicDir, page));
+        const { missing } = await missingRefs(doc, path.join(distDir, page));
         assert.deepEqual(missing, []);
         for (const other of LEGAL_PAGES) assert.match(doc, new RegExp(`href="/${other}/"`), other);
         assert.match(doc, /href="\/"/);
@@ -184,7 +184,7 @@ describe('robots.txt, sitemap.xml and canonical links', () => {
     assert.deepEqual(locs.sort(), [`${SITE}/`, ...LEGAL_PAGES.map((p) => `${SITE}/${p}/`)].sort());
     for (const loc of locs) {
       const rel = loc.slice(SITE.length);
-      await access(path.join(publicDir, rel === '/' ? 'index.html' : `${rel}index.html`));
+      await access(path.join(distDir, rel === '/' ? 'index.html' : `${rel}index.html`));
     }
   });
 
@@ -199,14 +199,14 @@ describe('robots.txt, sitemap.xml and canonical links', () => {
   it('uses an existing image for link previews', async () => {
     const m = html.match(/<meta property="og:image" content="https:\/\/kliplug\.ru\/([^"]+)">/);
     assert.ok(m, 'og:image is missing');
-    await access(path.join(publicDir, m[1]));
+    await access(path.join(distDir, m[1]));
   });
 });
 
 describe('prices', () => {
   it('shows exactly the four approved price rows', () => {
-    const block = plain(html.match(/<div class="plist">[\s\S]*?\n      <\/div>/)[0]);
-    const rows = [...block.matchAll(/<b>([^<]+)<\/b>[\s\S]*?<div class="pval">([^<]+)<\/div>/g)].map((m) => `${m[1]} = ${m[2]}`);
+    const block = plain(html.match(/<div class="plist"[^>]*>[\s\S]*?<\/section>/)[0]);
+    const rows = [...block.matchAll(/<h3>([^<]+)[\s\S]*?<div class="cost">([^<]+)<\/div>/g)].map((m) => `${m[1]} = ${m[2]}`);
     assert.deepEqual(rows, [
       'Ролик до 10 секунд = 2 990 ₽',
       'Ролик 10–15 секунд = 3 900 ₽',
@@ -217,7 +217,7 @@ describe('prices', () => {
 
   it('starts the hero price and descriptions from the lowest price', () => {
     const text = plain(html);
-    assert.match(text, /<p class="terms">От 2 990 ₽ ·/);
+    assert.match(text, /<div class="facts"><span>От <b>2 990 ₽<\/b><\/span>/);
     assert.match(text, /<meta name="description" content="[^"]*от 2 990 ₽/);
     assert.doesNotMatch(text, /5 000|12 000|35 000|4–30/);
   });
@@ -244,6 +244,14 @@ describe('metrika goals', () => {
     assert.match(html, /var YM_ID = '112868048';/);
     for (const name of ['tg_click', 'cta_click']) assert.match(html, new RegExp(`goal\\('${name}'\\)`), name);
   });
+
+  it('runs the counter only on the production host', () => {
+    const idOk = html.match(/var idOk = (.+);/);
+    assert.ok(idOk, 'idOk is missing');
+    const check = new Function('YM_ID', 'location', `return ${idOk[1]};`);
+    for (const host of ['kliplug.ru', 'www.kliplug.ru']) assert.equal(check('112868048', { hostname: host }), true, host);
+    for (const host of ['localhost', '127.0.0.1', 'kliplug.ru.evil.com', 'preview.kliplug.ru']) assert.equal(check('112868048', { hostname: host }), false, host);
+  });
 });
 
 describe('anchors for Yandex Direct quick links', () => {
@@ -251,5 +259,63 @@ describe('anchors for Yandex Direct quick links', () => {
     for (const id of ['raboty', 'kak-rabotaem', 'ceny', 'voprosy', 'zayavka']) {
       assert.match(html, new RegExp(`<section class="[^"]*" id="${id}">`), id);
     }
+  });
+});
+
+describe('ad tracking hooks', () => {
+  it('marks every call-to-action button and keeps the dock watch targets', () => {
+    const ctas = [...html.matchAll(/<a [^>]*href="#zayavka"[^>]*>/g)].map((m) => m[0]);
+    assert.ok(ctas.length >= 3, `found only ${ctas.length} CTA links`);
+    for (const tag of ctas) assert.match(tag, /data-cta/, tag);
+    assert.match(html, /<a class="btn" id="cta-hero" data-cta href="#zayavka">/);
+    for (const id of ['cta-hero', 'zayavka', 'site-foot', 'dock', 'cookie', 'hero-video']) {
+      assert.match(html, new RegExp(`id="${id}"`), id);
+    }
+  });
+
+  it('keeps every element the lead script reads', () => {
+    for (const id of ['lead', 'lead-status', 'lead-done', 'err-contact', 'err-card', 'err-consent']) {
+      assert.equal((html.match(new RegExp(`id="${id}"`, 'g')) || []).length, 1, id);
+    }
+    const form = html.match(/<form[^>]+id="lead"[\s\S]*?<\/form>/)[0];
+    for (const name of ['contact', 'card', 'website', 'consent']) assert.match(form, new RegExp(`name="${name}"`), name);
+    assert.equal((form.match(/<button[^>]*type="submit"/g) || []).length, 1);
+    assert.match(html, /contact: form\.elements\.contact\.value,\n\s+card: form\.elements\.card\.value,\n\s+consent: true,\n\s+website: form\.elements\.website\.value/);
+  });
+
+  it('does not ship the design preview stub instead of the real submit', () => {
+    assert.doesNotMatch(html, /Это превью сайта/);
+    assert.equal((html.match(/addEventListener\('submit'/g) || []).length, 1);
+  });
+});
+
+describe('works tabs and FAQ', () => {
+  it('renders accessible tabs with exactly one active panel', () => {
+    const tabs = [...html.matchAll(/<button[^>]*role="tab"[^>]*>/g)].map((m) => m[0]);
+    assert.equal(tabs.length, 3);
+    assert.equal(tabs.filter((t) => /aria-selected="true"/.test(t)).length, 1);
+    for (const tab of tabs) {
+      const panel = tab.match(/aria-controls="([^"]+)"/)[1];
+      assert.match(html, new RegExp(`role="tabpanel" id="${panel}"`), panel);
+    }
+    const panels = [...html.matchAll(/<div role="tabpanel"[^>]*>/g)].map((m) => m[0]);
+    assert.equal(panels.length, 3);
+    assert.equal(panels.filter((p) => !/\shidden/.test(p)).length, 1);
+    const text = plain(html);
+    for (const label of ['Техника', 'Продукты', 'Автотовары']) assert.match(text, new RegExp(`role="tab"[^>]*>${label} `), label);
+  });
+
+  it('keeps every FAQ answer in native details elements', () => {
+    assert.equal((html.match(/<details class="qa-item">/g) || []).length, 4);
+    const text = plain(html);
+    for (const answer of ['Достаточно фотографий', 'согласуем референс', 'Две правки входят', 'скажем честно']) {
+      assert.ok(text.includes(answer), answer);
+    }
+  });
+
+  it('ships no framework runtime', async () => {
+    assert.doesNotMatch(html, /<astro-island/);
+    const files = await readdir(path.join(distDir, '_astro'));
+    assert.deepEqual(files.filter((f) => f.endsWith('.js')), []);
   });
 });

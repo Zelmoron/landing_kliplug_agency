@@ -1,0 +1,16 @@
+.doc{padding-block:clamp(40px,6vw,80px) clamp(56px,8vw,112px)}
+.doc article{max-width:760px}
+.doc h1{font-size:clamp(36px,5vw,64px)}
+.doc-date{margin-top:14px;color:var(--mute);font:500 14px/1.4 var(--mono)}
+.doc-lead{margin-top:28px;font-size:clamp(18px,1.6vw,20px)}
+.doc section{padding:0}
+.doc h2{margin-top:44px;padding-top:24px;border-top:2px solid var(--ink);font-size:clamp(22px,2.4vw,28px);line-height:1.2}
+.doc p,.doc ul{margin-top:12px}
+.doc ul{padding-left:1.25em}
+.doc li{margin-top:6px}
+.doc li::marker{color:var(--acc)}
+.doc a{text-decoration-color:var(--acc);text-underline-offset:3px}
+.req{margin-top:16px;padding:20px 22px;background:#fff;border-left:4px solid var(--acc)}
+.req p:first-child{margin-top:0}
+.site-foot{border-top:1px solid var(--line)}
+.foot a[aria-current="page"]{color:var(--ink);text-decoration-color:var(--acc)}

@@ -49,3 +49,7 @@ next-env.d.ts
 
 # ide
 /.idea/
+
+# astro
+/dist/
+/.astro/

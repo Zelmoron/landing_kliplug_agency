@@ -1,0 +1,35 @@
+---
+import { TG_HANDLE, TG_URL } from '../data/contacts';
+
+interface Props {
+  ctaHref?: string;
+}
+
+const { ctaHref = '#zayavka' } = Astro.props;
+const docs = [
+  { href: '/privacy/', title: 'Политика обработки персональных данных' },
+  { href: '/consent/', title: 'Согласие на\u00a0обработку персональных данных' },
+  { href: '/offer/', title: 'Публичная оферта' },
+];
+const current = Astro.url.pathname;
+---
+
+<footer class="site-foot" id="site-foot">
+  <div class="wrap foot">
+    <div><b>Реквизиты</b>Самозанятый Акимов Игорь Дмитриевич, ИНН&nbsp;381297228244, г.&nbsp;Иркутск</div>
+    <div>
+      <b>Контакты</b>
+      <ul>
+        <li><a href="mailto:support@kliplug.ru">support@kliplug.ru</a></li>
+        <li>Telegram <a data-tg href={TG_URL} target="_blank" rel="noopener">{TG_HANDLE}</a></li>
+      </ul>
+    </div>
+    <div>
+      <b>Документы</b>
+      <ul>
+        {docs.map((doc) => <li><a href={doc.href} aria-current={doc.href === current ? 'page' : undefined}>{doc.title}</a></li>)}
+      </ul>
+    </div>
+    <a class="btn" data-cta href={ctaHref}>Получить ролик</a>
+  </div>
+</footer>

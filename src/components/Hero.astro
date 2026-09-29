@@ -1,0 +1,68 @@
+---
+import Logo from './Logo.astro';
+import { TG_HANDLE, TG_URL } from '../data/contacts';
+
+interface Props {
+  posterMobile: string;
+  posterDesktop: string;
+}
+
+const { posterMobile, posterDesktop } = Astro.props;
+---
+
+<header class="hero dark">
+  <div class="wrap">
+    <div class="top">
+      <Logo />
+      <a class="small" data-tg href={TG_URL} target="_blank" rel="noopener">{TG_HANDLE}</a>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1>Видео для карточки Wildberries и&nbsp;Ozon <em>за&nbsp;24&nbsp;часа</em></h1>
+        <p class="lead">Присылаете фото товара&nbsp;— получаете готовый ролик для карточки. Без студии, съёмок и&nbsp;фотографа.</p>
+        <div class="facts"><span>От <b>2&nbsp;990&nbsp;₽</b></span><span>Формат <b>3:4</b> под требования площадки</span></div>
+        <a class="btn" id="cta-hero" data-cta href="#zayavka">Получить ролик <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"></path></svg></a>
+      </div>
+      <div class="screen" style={`--poster-m:url("${posterMobile}");--poster-d:url("${posterDesktop}")`}>
+        <video id="hero-video" autoplay muted loop playsinline preload="none" data-poster={posterMobile} data-poster-wide={posterDesktop} disablepictureinpicture tabindex="-1" aria-hidden="true">
+          <source data-src="/videos/hero-desktop.mp4" media="(min-width: 900px)" type="video/mp4">
+          <source data-src="/videos/hero-mobile.mp4" type="video/mp4">
+        </video>
+        <script is:inline>
+        (function(){
+          var v = document.getElementById('hero-video');
+          var wide = window.matchMedia('(min-width: 900px)').matches;
+          v.setAttribute('poster', v.getAttribute(wide ? 'data-poster-wide' : 'data-poster'));
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+          if (!wide && c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+          var list = v.querySelectorAll('source[data-src]');
+          for (var i = 0; i < list.length; i++) list[i].setAttribute('src', list[i].getAttribute('data-src'));
+          v.setAttribute('data-on', '');
+          v.load();
+        })();
+        </script>
+        <div class="tc" aria-hidden="true"><span id="hero-tc">00:00</span><span>12 с</span></div>
+        <div class="bar" id="hero-bar" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+  const tc = document.getElementById('hero-tc');
+  const bar = document.getElementById('hero-bar');
+  if (video && tc && bar) {
+    let shown = 0;
+    video.addEventListener('timeupdate', () => {
+      if (!video.duration) return;
+      const s = Math.floor(video.currentTime);
+      if (s !== shown) {
+        shown = s;
+        tc.textContent = `00:${String(s).padStart(2, '0')}`;
+      }
+      bar.style.transform = `scaleX(${video.currentTime / video.duration})`;
+    });
+  }
+</script>
