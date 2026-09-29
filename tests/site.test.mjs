@@ -245,12 +245,18 @@ describe('metrika goals', () => {
     for (const name of ['tg_click', 'cta_click']) assert.match(html, new RegExp(`goal\\('${name}'\\)`), name);
   });
 
-  it('runs the counter only on the production host', () => {
-    const idOk = html.match(/var idOk = (.+);/);
-    assert.ok(idOk, 'idOk is missing');
-    const check = new Function('YM_ID', 'location', `return ${idOk[1]};`);
-    for (const host of ['kliplug.ru', 'www.kliplug.ru']) assert.equal(check('112868048', { hostname: host }), true, host);
-    for (const host of ['localhost', '127.0.0.1', 'kliplug.ru.evil.com', 'preview.kliplug.ru']) assert.equal(check('112868048', { hostname: host }), false, host);
+  it('runs the counter only on the canonical host', () => {
+    const guard = html.match(/var canonical = [\s\S]*?var idOk = .+;/);
+    assert.ok(guard, 'host guard is missing');
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
+    assert.ok(canonical, 'canonical is missing');
+    const check = (hostname, canonicalHref = canonical[1]) => {
+      const document = { querySelector: () => (canonicalHref ? { href: canonicalHref } : null) };
+      return new Function('YM_ID', 'document', 'location', `${guard[0]} return idOk;`)('112868048', document, { hostname });
+    };
+    assert.equal(check('kliplug.ru'), true, 'kliplug.ru');
+    for (const host of ['www.kliplug.ru', 'localhost', '127.0.0.1', 'kliplug.ru.evil.com', 'preview.kliplug.ru']) assert.equal(check(host), false, host);
+    assert.equal(check('kliplug.ru', null), false, 'no canonical');
   });
 });
 

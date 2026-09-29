@@ -84,7 +84,8 @@ const ogImageUrl = new URL(ogImage.src, Astro.site).href;
 (function(){
   var YM_ID = '112868048';
   var LEAD_URL = 'https://n8n.ixore.ru/webhook/kliplug-lead';
-  var idOk = /^\d+$/.test(YM_ID) && /^(www\.)?kliplug\.ru$/.test(location.hostname);
+  var canonical = document.querySelector('link[rel="canonical"]');
+  var idOk = /^\d+$/.test(YM_ID) && !!canonical && location.hostname === new URL(canonical.href).hostname;
 
   var CONSENT_KEY = 'kliplug-cookie-consent';
   var metrikaOn = false;
