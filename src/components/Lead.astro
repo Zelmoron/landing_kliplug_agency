@@ -1,0 +1,43 @@
+---
+import { TG_URL } from '../data/contacts';
+---
+
+<section class="order dark" id="zayavka">
+  <div class="wrap lead-grid">
+    <div class="order-head">
+      <h2>Оставьте заявку или напишите нам</h2>
+      <div class="facts"><span><b>24&nbsp;часа</b></span><span><b>2&nbsp;правки</b></span><span>формат <b>3:4</b></span></div>
+      <div class="order-talk">
+        <p>Хотите обсудить сразу:</p>
+        <a class="tg-link" data-tg href={TG_URL} target="_blank" rel="noopener">Написать в&nbsp;Telegram</a>
+      </div>
+    </div>
+    <div class="order-body">
+      <form class="lead-form" id="lead" action="https://n8n.ixore.ru/webhook/kliplug-lead" method="post" novalidate>
+        <label class="field">
+          <span>Telegram или телефон</span>
+          <input class="input ym-disable-keys" name="contact" type="text" autocomplete="tel" placeholder="@username или номер" required aria-describedby="err-contact">
+          <em class="err" id="err-contact" aria-live="polite"></em>
+        </label>
+        <label class="field">
+          <span>Ссылка на карточку</span>
+          <input class="input ym-disable-keys" name="card" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="wildberries.ru/... или ozon.ru/..." required aria-describedby="err-card">
+          <em class="err" id="err-card" aria-live="polite"></em>
+        </label>
+        <div class="hp" aria-hidden="true"><label>Сайт <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <label class="check">
+          <input name="consent" type="checkbox" value="yes" required aria-describedby="err-consent">
+          <span>Я&nbsp;даю <a href="/consent/" target="_blank">согласие на&nbsp;обработку персональных данных</a></span>
+        </label>
+        <em class="err check-err" id="err-consent" aria-live="polite"></em>
+        <button class="btn" type="submit">Отправить заявку</button>
+        <p class="form-status" id="lead-status" role="alert"></p>
+        <p class="micro">Посмотрим карточку и&nbsp;напишем вам в&nbsp;течение часа</p>
+        <p class="policy-note">Как мы обрабатываем данные: <a href="/privacy/" target="_blank">политика обработки персональных данных</a></p>
+      </form>
+      <div class="lead-done" id="lead-done" role="status" tabindex="-1" hidden>
+        <p>Заявка отправлена. Напишем вам в&nbsp;течение часа.</p>
+      </div>
+    </div>
+  </div>
+</section>

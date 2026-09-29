@@ -1,0 +1,40 @@
+---
+const MAX_SECONDS = 15;
+const BASE_SECONDS = 10;
+const TICKS = [0, 5, 10, 15];
+
+const rows = [
+  { title: 'Ролик до&nbsp;10&nbsp;секунд', seconds: 10, count: 1, cost: '2&nbsp;990&nbsp;₽' },
+  { title: 'Ролик 10–15&nbsp;секунд', seconds: 15, count: 1, cost: '3&nbsp;900&nbsp;₽' },
+  { title: '3&nbsp;ролика по&nbsp;10&nbsp;секунд', seconds: 10, count: 3, cost: '7&nbsp;900&nbsp;₽', per: '2&nbsp;633&nbsp;₽ за&nbsp;ролик' },
+  { title: '10&nbsp;роликов по&nbsp;10&nbsp;секунд', seconds: 10, count: 10, cost: '24&nbsp;000&nbsp;₽', per: '2&nbsp;400&nbsp;₽ за&nbsp;ролик' },
+];
+
+const pct = (seconds: number) => `${(seconds / MAX_SECONDS) * 100}%`;
+---
+
+<section class="prices" id="ceny">
+  <div class="wrap">
+    <h2>Цены</h2>
+    <div class="ruler" aria-hidden="true">
+      <span></span>
+      <div class="scale">
+        {TICKS.map((s, i) => <span style={`left:${pct(s)}`}>{i === 0 || i === TICKS.length - 1 ? `${s} с` : s}</span>)}
+      </div>
+      <span></span>
+    </div>
+    <div class="plist" style={`--base:${pct(BASE_SECONDS)}`}>
+      {rows.map((r) => (
+        <div class="row">
+          <h3><Fragment set:html={r.title} />{r.per && <span class="per" set:html={r.per} />}</h3>
+          <div class="track" aria-hidden="true">
+            <div class="bars" style={`width:${pct(r.seconds)}`}>
+              {Array.from({ length: r.count }, () => <i class:list={{ x: r.seconds > BASE_SECONDS }} />)}
+            </div>
+          </div>
+          <div class="cost" set:html={r.cost} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

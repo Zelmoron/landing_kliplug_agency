@@ -1,0 +1,14 @@
+---
+import { getStrip } from '../data/strip';
+
+const { width, height, version } = await getStrip();
+const stripStyle = `--strip-src:url(/strip.webp?v=${version});--strip-ratio:${width / height}`;
+---
+
+<section class="motion dark">
+  <div class="wrap motion-grid">
+    <h2>Движение в&nbsp;карточке останавливает взгляд</h2>
+    <p>Покупатель листает выдачу быстро. Видео показывает товар в&nbsp;деле: как открывается, как сидит, как работает. Это то, чего не&nbsp;объясняет ни&nbsp;одно фото.</p>
+  </div>
+  <div class="strip" aria-hidden="true" style={stripStyle}></div>
+</section>

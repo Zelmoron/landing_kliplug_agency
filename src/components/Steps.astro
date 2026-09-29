@@ -1,0 +1,23 @@
+---
+const steps = [
+  { title: 'Заявка', text: 'Присылаете фото товара и\u00a0пару слов о\u00a0нём.' },
+  { title: 'Подтверждение', text: 'Согласуем идею и\u00a0стоимость.' },
+  { title: 'Ролик за\u00a024\u00a0часа', text: 'Отдаём готовое видео.', hot: true },
+  { title: 'Правки', text: 'Две итерации включены в\u00a0стоимость.' },
+];
+---
+
+<section class="how" id="kak-rabotaem">
+  <div class="wrap">
+    <h2>Как работаем</h2>
+    <ol class="steps">
+      {steps.map((s, i) => (
+        <li class:list={['step', { hot: s.hot }]}>
+          <div class="n">{i + 1}</div>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

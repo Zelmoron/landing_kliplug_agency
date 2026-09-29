@@ -1,0 +1,115 @@
+---
+import { getImage } from 'astro:assets';
+import { works, initialWork, type WorkView } from '../data/works';
+
+const items: WorkView[] = await Promise.all(
+  works.map(async ({ poster, ...rest }) => ({
+    ...rest,
+    poster: (await getImage({ src: poster, format: 'webp', quality: 72 })).src,
+  })),
+);
+const current = items.find((it) => it.key === initialWork) ?? items[0];
+---
+
+<div class="wrap works-grid" data-works={JSON.stringify(items.map(({ key, video, poster, alt, sale }) => ({ key, video, poster, alt, sale })))}>
+  <div class="phone">
+    <div class="status" aria-hidden="true"><span>9:41</span><i></i></div>
+    <div class="search" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.8"></path></svg>Поиск
+    </div>
+    <div class="media">
+      <video data-src={current.video} data-poster={current.poster} aria-label={current.alt} muted loop playsinline preload="none" disablepictureinpicture width="560" height="752"></video>
+      <span class="sale" aria-hidden="true">{current.sale}</span>
+    </div>
+    {items.map((it) => (
+      <div role="tabpanel" id={`work-panel-${it.key}`} aria-labelledby={`work-tab-${it.key}`} hidden={it.key !== current.key}>
+        <div class="price"><b>{it.price}</b><s>{it.oldPrice}</s></div>
+        <div class="pname">{it.name}</div>
+        <div class="meta"><span><span class="star">{it.rate}</span> {it.votes}</span><span class="when">Завтра</span></div>
+      </div>
+    ))}
+    <p class="phone-note">Пример карточки на&nbsp;маркетплейсе</p>
+  </div>
+  <div>
+    <p class="kicker">Наши работы</p>
+    <h2>Сделано по&nbsp;фото из&nbsp;карточки</h2>
+    <div class="tabs" role="tablist" aria-orientation="vertical" aria-label="Категории работ">
+      {items.map((it) => {
+        const active = it.key === current.key;
+        return (
+          <button
+            class="tab"
+            type="button"
+            role="tab"
+            id={`work-tab-${it.key}`}
+            aria-controls={`work-panel-${it.key}`}
+            aria-selected={active ? 'true' : 'false'}
+            tabindex={active ? 0 : -1}
+            data-state={active ? 'active' : 'inactive'}
+            data-key={it.key}
+          >{it.label} <span class="mono">{it.duration}</span></button>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<script>
+  interface Work {
+    key: string;
+    video: string;
+    poster: string;
+    alt: string;
+    sale: string;
+  }
+
+  const root = document.querySelector<HTMLElement>('[data-works]');
+  if (root) {
+    const works: Work[] = JSON.parse(root.dataset.works ?? '[]');
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const video = root.querySelector('video');
+    const sale = root.querySelector('.sale');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const select = (tab: HTMLButtonElement) => {
+      if (tab.getAttribute('aria-selected') === 'true') return;
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        t.dataset.state = on ? 'active' : 'inactive';
+        document.getElementById(t.getAttribute('aria-controls') ?? '')?.toggleAttribute('hidden', !on);
+      }
+      const work = works.find((w) => w.key === tab.dataset.key);
+      if (!work || !video || !sale) return;
+      sale.textContent = work.sale;
+      video.dataset.src = work.video;
+      video.dataset.poster = work.poster;
+      video.setAttribute('aria-label', work.alt);
+      video.poster = work.poster;
+      video.src = work.video;
+      if (!reduce) video.play().catch(() => {});
+    };
+
+    const keys: Record<string, (i: number) => number> = {
+      ArrowDown: (i) => (i + 1) % tabs.length,
+      ArrowRight: (i) => (i + 1) % tabs.length,
+      ArrowUp: (i) => (i - 1 + tabs.length) % tabs.length,
+      ArrowLeft: (i) => (i - 1 + tabs.length) % tabs.length,
+      Home: () => 0,
+      End: () => tabs.length - 1,
+    };
+
+    for (const tab of tabs) {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (ev) => {
+        const move = keys[ev.key];
+        if (!move) return;
+        ev.preventDefault();
+        const next = tabs[move(tabs.indexOf(tab))];
+        next.focus();
+        select(next);
+      });
+    }
+  }
+</script>

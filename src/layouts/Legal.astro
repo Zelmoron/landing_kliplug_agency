@@ -1,0 +1,47 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import '../styles/legal.css';
+import Logo from '../components/Logo.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{title} | Kliplug Agency</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<meta name="theme-color" content="#0D0D0E">
+<link rel="icon" href="/favicon.png" type="image/png">
+<Font cssVariable="--font-oswald" preload />
+</head>
+<body>
+
+<header class="dark">
+  <div class="wrap top">
+    <Logo />
+    <a class="small" href="/">На главную</a>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <article>
+    <slot />
+  </article>
+</main>
+
+<Footer ctaHref="/#zayavka" />
+
+</body>
+</html>
